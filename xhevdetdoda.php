@@ -201,7 +201,7 @@ foreach ($subjectAverages as $subject => $total) {
         </div>
 
         <?php if ($isTeacher || $isAdmin): ?>
-            <a href="edit_grades.php" class="edit-btn">Edit Grades</a>
+            <a href="editGrades.php" class="edit-btn">Edit Grades</a>
         <?php endif; ?>
     </div>
 
