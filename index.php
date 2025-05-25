@@ -15,7 +15,7 @@
 </head>
 <body>
 
-  <!-- Navigation Bar -->
+
   <header class="navbar">
     <div class="logo">EduPrishtina</div>
     <div class="nav-buttons">
@@ -24,7 +24,7 @@
     </div>
   </header>
 
-  <!-- Hero Banner -->
+ 
   <section class="hero">
     <div class="hero-content">
       <h1>Welcome to EduPrishtina</h1>
@@ -32,8 +32,7 @@
     </div>
   </section>
 
-  <!-- Features -->
-  <!-- Features with Background -->
+
 <section class="features-background">
   <div class="features-overlay">
     <div class="features">
@@ -54,20 +53,20 @@
 </section>
 
 
-  <!-- Footer -->
+  
   <footer class="footer">
     <p>Contact: info@eduprishtina.com | +383 44 123 456</p>
     <p>&copy; 2025 EduPrishtina. All rights reserved.</p>
   </footer>
 
-  <!-- Scroll to Top Button -->
+ 
 <button id="scrollToTopBtn" title="Go to top">↑</button>
 
 <script>
-  // Get the button
+  
   const scrollToTopBtn = document.getElementById("scrollToTopBtn");
 
-  // Show the button when scrolled down
+  
   window.addEventListener("scroll", () => {
     if (window.scrollY > 300) {
       scrollToTopBtn.style.display = "block";
@@ -76,7 +75,7 @@
     }
   });
 
-  // Scroll to top when clicked
+  
   scrollToTopBtn.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });

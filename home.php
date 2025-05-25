@@ -31,7 +31,7 @@ $stmt = $conn->prepare("SELECT school, isadmin, isteacher, isstudent FROM users 
 $stmt->execute([$userId]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Assuming $user is fetched using the logged-in user's ID
+
 $isadmin = $user['isadmin'] ?? 'false';
 $isteacher = $user['isteacher'] ?? 'false';
 $isstudent = $user['isstudent'] ?? 'false';
@@ -52,7 +52,7 @@ $schools = [
     ]
 ];
 
-// Only show the school card if user is student or teacher
+
 if ($user['isstudent'] || $user['isteacher']) {
     $schools = array_filter($schools, function ($key) use ($user) {
         return strtolower(str_replace(' ', '', $key)) === strtolower($user['school']);
@@ -528,20 +528,20 @@ The initiative reflects Prishtina’s growing commitment to innovation in educat
 
   
 
-   <!-- Footer -->
+   
   <footer class="footer">
     <p>Contact: info@eduprishtina.com | +383 44 123 456</p>
     <p>&copy; 2025 EduPrishtina. All rights reserved.</p>
   </footer>
 
-  <!-- Scroll to Top Button -->
+ 
 <button id="scrollToTopBtn" title="Go to top">↑</button>
 
 <script>
-  // Get the button
+  
   const scrollToTopBtn = document.getElementById("scrollToTopBtn");
 
-  // Show the button when scrolled down
+  
   window.addEventListener("scroll", () => {
     if (window.scrollY > 300) {
       scrollToTopBtn.style.display = "block";
@@ -550,7 +550,7 @@ The initiative reflects Prishtina’s growing commitment to innovation in educat
     }
   });
 
-  // Scroll to top when clicked
+  
   scrollToTopBtn.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });

@@ -79,7 +79,7 @@ $commentsStmt->execute();
 $comments = $commentsStmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<!-- HTML and rest of the file remains unchanged -->
+
 
 
 <!DOCTYPE html>

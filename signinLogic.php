@@ -30,9 +30,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $_SESSION['school'] = $data['school'];
                 $_SESSION['isteacher'] = $data['isteacher'];
 
-                // Redirect to home
+                
                 header('Location: home.php');
-                exit(); // Always call exit after header redirect
+                exit(); 
             } else {
                 echo "The password is not valid";
             }

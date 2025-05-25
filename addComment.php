@@ -9,7 +9,7 @@ if (!isset($_SESSION['id'])) {
 
 $userId = $_SESSION['id'];
 
-// Get user info
+
 $stmt = $conn->prepare("SELECT name, surname, isstudent, isteacher, isadmin, school FROM users WHERE id = ?");
 $stmt->execute([$userId]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -24,7 +24,7 @@ $isStudent = strtolower($user['isstudent']) === 'true';
 $isTeacher = strtolower($user['isteacher']) === 'true';
 $isAdmin = strtolower($user['isadmin']) === 'true';
 
-// Only allow admins or teachers from xhevdetdoda
+
 if (!($isAdmin || ($isTeacher && $school === 'xhevdetdoda'))) {
     echo "Access denied.";
     exit();

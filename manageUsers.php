@@ -17,7 +17,7 @@ if (!$user || $user['isadmin'] !== 'true') {
     exit();
 }
 
-// Handle delete
+
 if (isset($_GET['delete'])) {
     $deleteId = $_GET['delete'];
     $stmt = $conn->prepare("DELETE FROM users WHERE id = ?");
@@ -26,7 +26,7 @@ if (isset($_GET['delete'])) {
     exit();
 }
 
-// Handle update
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     $id = $_POST['id'];
     $school = $_POST['school'];
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     exit();
 }
 
-// Filters
+
 $filterRole = $_GET['role'] ?? '';
 $filterSchool = $_GET['school'] ?? '';
 
