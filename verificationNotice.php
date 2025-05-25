@@ -69,7 +69,7 @@
         <a href="home.php">Home</a>
         <a href="calculator.php">Calculator</a>
         <a href="projectIdea.php">About</a>
-        <a href="contact.php">Contact</a>
+        <a href="verificationNotice.php">Verification</a>
     </nav>
 
     <div class="container">

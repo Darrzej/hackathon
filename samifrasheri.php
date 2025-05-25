@@ -191,6 +191,22 @@ $comments = $commentsStmt->fetchAll(PDO::FETCH_ASSOC);
             font-weight: bold;
             margin-bottom: 5px;
         }
+        .nav-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    background-color: #004aad; /* primary blue */
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: #00337a; /* slightly darker blue on hover */
+}
+
     </style>
 </head>
 <body>
@@ -206,9 +222,10 @@ $comments = $commentsStmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
 
     <div class="container">
+        <a href="home.php" class="nav-btn">← Back</a>
         <h2>Welcome to Sami Frasheri School</h2>
         <div class="school-history">
-            <p><strong>Sami Frasheri High School</strong> stands as a cornerstone of academic excellence in Prishtina. Renowned for nurturing intellectual growth, innovation, and community values, the school offers a dynamic learning environment empowering students to thrive in both academic and personal pursuits.</p>
+            <p><strong>Sami Frasheri High School</strong> is one of the most prestigious educational institutions in Prishtina. It is named after the famous Albanian writer, philosopher, and national renaissance figure Sami Frashëri. Established to uphold the values of enlightenment, knowledge, and cultural pride, the school is known for its focus on mathematics, natural sciences, and languages. Many of its alumni have gone on to become prominent figures in politics, academia, and the arts.</p>
         </div>
 
         <div class="button-bar">

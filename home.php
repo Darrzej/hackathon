@@ -384,6 +384,12 @@ if ($user['isstudent'] || $user['isteacher']) {
 <body>
   <div class="navbar">
     <h1>EduPrishtina</h1>
+    <?php if (isset($isadmin) && $isadmin === 'true'): ?>
+    <a href="manageUsers.php" style="margin-left: 20px; background-color:rgb(251, 251, 252); color: blue; padding: 8px 12px; border-radius: 5px; text-decoration: none;">
+        Manage Users
+    </a>
+<?php endif; ?>
+
     <div class="user-menu">
       <div class="user-icon"></div>
       <div class="dropdown">
@@ -423,8 +429,14 @@ if ($user['isstudent'] || $user['isteacher']) {
     </div>
 
     <div class="news-section">
-      <h2>Latest News</h2>
-      <p>No news at the moment. Stay tuned for upcoming announcements and updates from your schools.</p>
+      <h2>Prishtina Schools Begin Digital Transformation Ahead of 2025 Academic Year</h2>
+      <p>In a move to modernize education, several schools in Prishtina have begun implementing digital platforms to improve communication between students, teachers, and parents. As part of a municipal initiative supported by the Ministry of Education, platforms like EduPrishtina are being introduced to allow students to check grades, schedules, and communicate more easily with educators.
+
+Additionally, schools are preparing for the national standardized testing scheduled for late spring 2025. Teachers are undergoing professional development sessions to adapt to new teaching methodologies and technology integration in classrooms.
+
+The initiative reflects Prishtina’s growing commitment to innovation in education, aiming to enhance student performance, transparency, and academic support across all grade levels.
+
+</p>
     </div>
 
     <div class="access-warning">
@@ -479,6 +491,9 @@ if ($user['isstudent'] || $user['isteacher']) {
   </div>
 
 
+  
+
+
 
   <div class="card-section">
     <div class="card">
@@ -500,6 +515,12 @@ if ($user['isstudent'] || $user['isteacher']) {
         <h3>About the Project</h3>
         <p>Understand the idea and motivation behind EduPrishtina's creation.</p>
         <a href="projectIdea.php">Learn More</a>
+    </div>
+    <div class="card">
+        <img src="images/calendar.png" alt="Project Idea">
+        <h3>Calendar</h3>
+        <p>Take a look and dont miss a day of this year's school official calendar. 2024/2025</p>
+        <a href="schoolCalendar.php">Take a Peek</a>
     </div>
 </div>
 

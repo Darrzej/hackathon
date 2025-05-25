@@ -24,15 +24,14 @@ session_start();
         }
         nav {
             background-color: #002244;
-            padding: 10px 20px;
+            padding: 10px 0;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            justify-content: center;
         }
         nav a {
             color: white;
             text-decoration: none;
-            margin: 0 15px;
+            margin: 0 20px;
             font-weight: bold;
         }
         nav a:hover {
@@ -75,8 +74,9 @@ session_start();
     </header>
 
     <nav>
-        <div><a href="home.php">Home</a></div>
+        
         <div>
+            <a href="home.php">Home</a>
             <a href="verificationNotice.php">Verification</a>
             <a href="calculator.php">Calculator</a>
             <a href="projectIdea.php">Project Idea</a>

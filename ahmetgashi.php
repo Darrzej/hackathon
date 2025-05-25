@@ -191,6 +191,22 @@ $comments = $commentsStmt->fetchAll(PDO::FETCH_ASSOC);
             font-weight: bold;
             margin-bottom: 5px;
         }
+        .nav-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    background-color: #004aad; /* primary blue */
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: #00337a; /* slightly darker blue on hover */
+}
+
     </style>
 </head>
 <body>
@@ -206,9 +222,10 @@ $comments = $commentsStmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
 
     <div class="container">
+        <a href="home.php" class="nav-btn">← Back</a>
         <h2>Welcome to Ahmet Gashi School</h2>
         <div class="school-history">
-            <p><strong>Ahmet Gashi High School</strong> stands as a cornerstone of academic excellence in Prishtina. Renowned for nurturing intellectual growth, innovation, and community values, the school offers a dynamic learning environment empowering students to thrive in both academic and personal pursuits.</p>
+            <p><strong>Ahmet Gashi High School</strong>, located in a key residential area of Prishtina, is dedicated to the education and development of young minds. Named after a respected educator and intellectual, the school is committed to providing a strong foundation in core subjects while fostering creativity and community involvement. With modern facilities and passionate teachers, Ahmet Gashi School continues to play a vital role in shaping the next generation of Kosovar leaders and innovators. </p>
         </div>
 
         <div class="button-bar">

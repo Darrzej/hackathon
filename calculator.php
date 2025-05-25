@@ -110,7 +110,7 @@ session_start();
     <a href="home.php">Home</a>
     <a href="calculator.php">Calculator</a>
     <a href="verificationNotice.php">Verification</a>
-    <a href="aboutProject.php">About</a>
+    <a href="projectIdea.php">About</a>
 </nav>
 
 <div class="container">

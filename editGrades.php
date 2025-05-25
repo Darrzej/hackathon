@@ -55,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <a href="xhevdetdoda.php" class="nav-btn">← Back</a>
     <title>Edit Grades - Xhevdet Doda</title>
     <link rel="stylesheet" href="styles.css">
     <style>
@@ -102,6 +103,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .success {
             color: green;
         }
+        .nav-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    background-color: #004aad; /* primary blue */
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: #00337a; /* slightly darker blue on hover */
+}
+
     </style>
 </head>
 <body>

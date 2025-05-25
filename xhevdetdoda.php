@@ -190,6 +190,22 @@ $semesterOptions = ['1', '2', '3', '4'];
   font-size: 16px;
   color: #333;
 }
+.nav-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    background-color: #004aad; /* primary blue */
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: #00337a; /* slightly darker blue on hover */
+}
+
     </style>
 </head>
 <body>
@@ -203,11 +219,14 @@ $semesterOptions = ['1', '2', '3', '4'];
             ?>
         </div>
     </div>
+    
 
     <div class="container">
+        <a href="home.php" class="nav-btn">← Back</a>
+
         <h2>Welcome to Xhevdet Doda School</h2>
         <div class="school-history">
-            <p><strong>Xhevdet Doda High School</strong> stands as a cornerstone of academic excellence in Prishtina. Renowned for nurturing intellectual growth, innovation, and community values, the school offers a dynamic learning environment empowering students to thrive in both academic and personal pursuits.</p>
+            <p><strong>Xhevdet Doda High School</strong> is named after a national hero who fought for Albanian freedom during World War II. Located in the heart of Prishtina, the school has a long-standing reputation for academic excellence and civic engagement. It emphasizes science and humanities, offering a rigorous curriculum aimed at preparing students for higher education and leadership roles. Over the decades, Xhevdet Doda has produced generations of professionals who have contributed significantly to Kosovar society. </p>
         </div>
 
         <div class="button-bar">

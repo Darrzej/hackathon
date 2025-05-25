@@ -54,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html>
 <head>
+    <a href="ahmetgashi.php" class="nav-btn">← Back</a>
     <title>Add Comment - Xhevdet Doda</title>
     <link rel="stylesheet" href="styles.css">
     <style>
@@ -108,11 +109,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             text-align: center;
             margin-bottom: 15px;
         }
+        .nav-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    background-color: #004aad; /* primary blue */
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: #00337a; /* slightly darker blue on hover */
+}
+
     </style>
 </head>
 <body>
 <div class="container">
-    <h2>Add Comment - Xhevdet Doda</h2>
+    <h2>Add Comment - Ahmet Gashi</h2>
 
     <?php if (isset($_GET['success'])): ?>
         <p class="success">Comment added successfully!</p>
