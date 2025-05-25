@@ -34,20 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $grade = $_POST['grade'];
     $semester = $_POST['semester'];
 
-    // Check if grade already exists
-    $checkStmt = $conn->prepare("SELECT id FROM student_grades WHERE student_id = ? AND subject = ? AND semester = ?");
-    $checkStmt->execute([$studentId, $subject, $semester]);
-    $existing = $checkStmt->fetch(PDO::FETCH_ASSOC);
+    $insertStmt = $conn->prepare("INSERT INTO student_grades (student_id, subject, grade, semester, teacher_id) VALUES (?, ?, ?, ?, ?)");
+    $insertStmt->execute([$studentId, $subject, $grade, $semester, $userId]);
 
-    if ($existing) {
-        $updateStmt = $conn->prepare("UPDATE student_grades SET grade = ?, teacher_id = ? WHERE id = ?");
-        $updateStmt->execute([$grade, $userId, $existing['id']]);
-    } else {
-        $insertStmt = $conn->prepare("INSERT INTO student_grades (student_id, subject, grade, semester, teacher_id) VALUES (?, ?, ?, ?, ?)");
-        $insertStmt->execute([$studentId, $subject, $grade, $semester, $userId]);
-    }
-
-    echo "<script>alert('Grade updated successfully.'); window.location.href='xhevdetdoda.php';</script>";
+    echo "<script>alert('Grade added successfully.'); window.location.href='xhevdetdoda.php';</script>";
     exit();
 }
 ?>
@@ -56,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Edit Grade</title>
+    <title>Add Grade</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -91,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
 </head>
 <body>
-    <h2>Edit Grade for Student</h2>
+    <h2>Add Grade for Student</h2>
     <form method="POST">
         <label for="student_id">Select Student:</label>
         <select name="student_id" required>
@@ -107,13 +97,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endforeach; ?>
         </select>
 
-        <label for="semester">Semester (1-4):</label>
-        <input type="number" name="semester" min="1" max="4" required>
-
         <label for="grade">Grade (1-5):</label>
         <input type="number" name="grade" min="1" max="5" required>
 
-        <input type="submit" value="Update Grade">
+        <label for="semester">Semester (1-4):</label>
+        <input type="number" name="semester" min="1" max="4" required>
+
+        <input type="submit" value="Add Grade">
     </form>
 </body>
 </html>

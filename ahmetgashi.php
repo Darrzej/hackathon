@@ -1,0 +1,1 @@
+<?php /* same logic as xhevdetdoda.php with school = 'ahmetgashi' */ ?>
