@@ -43,7 +43,7 @@
       </div>
       <div class="feature-card yellow-bg">
         <h2>🗓️ Easy Access</h2>
-        <p>Check your daily schedule, see grades instantly, and stay up to date—all in one place.</p>
+        <p>Check your school calendar, see grades instantly, and stay up to date—all in one place.</p>
       </div>
       <div class="feature-card lightblue-bg">
         <h2>📊 Teacher Tools</h2>
