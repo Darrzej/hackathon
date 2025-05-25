@@ -9,104 +9,120 @@ if (!isset($_SESSION['id'])) {
 
 $userId = $_SESSION['id'];
 
-$stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
+// Get user info
+$stmt = $conn->prepare("SELECT name, surname, isstudent, isteacher, isadmin, school FROM users WHERE id = ?");
 $stmt->execute([$userId]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if (!$user || (strtolower($user['school']) !== 'xhevdetdoda') || (strtolower($user['isteacher']) !== 'true' && strtolower($user['isadmin']) !== 'true')) {
+if (!$user) {
+    echo "Access denied.";
+    exit();
+}
+
+$school = strtolower($user['school']);
+$isStudent = strtolower($user['isstudent']) === 'true';
+$isTeacher = strtolower($user['isteacher']) === 'true';
+$isAdmin = strtolower($user['isadmin']) === 'true';
+
+// Only allow admins or teachers from xhevdetdoda
+if (!($isAdmin || ($isTeacher && $school === 'xhevdetdoda'))) {
     echo "Access denied.";
     exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $comment = trim($_POST['comment'] ?? '');
+    $comment = trim($_POST['comment']);
 
-    if ($comment !== '') {
-        $insert = $conn->prepare("INSERT INTO comments (user_id, comment) VALUES (?, ?)");
-        $insert->execute([$userId, $comment]);
-        header("Location: xhevdetdoda.php");
+    if (empty($comment)) {
+        echo "Comment cannot be empty.";
         exit();
-    } else {
-        $error = "Comment cannot be empty.";
     }
+
+    $fullName = $user['name'] . ' ' . $user['surname'];
+    $role = $isAdmin ? 'admin' : 'teacher';
+    $schoolName = 'xhevdetdoda';
+
+    $insertStmt = $conn->prepare("INSERT INTO comments (user_id, role, name, comment, school, created_at) VALUES (?, ?, ?, ?, ?, NOW())");
+    $insertStmt->execute([$userId, $role, $fullName, $comment, $schoolName]);
+
+    header("Location: xhevdetdoda.php?success=1");
+    exit();
 }
 ?>
 
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Add Comment</title>
+    <title>Add Comment - Xhevdet Doda</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
         body {
-            background: linear-gradient(to bottom right, #e0f7ff, #ffffff);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
             margin: 0;
-            color: #003366;
+            padding: 20px;
         }
         .container {
             max-width: 600px;
-            margin: 80px auto;
-            background: #fff;
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            margin: auto;
+            background: white;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
         }
         h2 {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
+            color: #003366;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+        }
+        textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
         }
         textarea {
-            width: 100%;
             height: 120px;
-            padding: 15px;
-            font-size: 1rem;
-            border-radius: 10px;
-            border: 1px solid #ccc;
-            resize: none;
+            resize: vertical;
         }
-        input[type=submit] {
-            margin-top: 20px;
-            background-color: #0077cc;
+        button {
+            background-color: #003366;
             color: white;
-            padding: 12px 24px;
             border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            cursor: pointer;
-        }
-        input[type=submit]:hover {
-            background-color: #005fa3;
-        }
-        .error {
-            color: red;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-        .back-link {
-            display: block;
-            text-align: center;
             margin-top: 20px;
-            text-decoration: none;
-            color: #0077cc;
+            cursor: pointer;
+            font-weight: bold;
         }
-        .back-link:hover {
-            text-decoration: underline;
+        button:hover {
+            background-color: #0055aa;
+        }
+        .success {
+            color: green;
+            text-align: center;
+            margin-bottom: 15px;
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <h2>Publish a Comment</h2>
-    <?php if (!empty($error)): ?>
-        <div class="error"><?= htmlspecialchars($error) ?></div>
+    <h2>Add Comment - Xhevdet Doda</h2>
+
+    <?php if (isset($_GET['success'])): ?>
+        <p class="success">Comment added successfully!</p>
     <?php endif; ?>
-    <form method="POST">
-        <label for="comment">Your comment:</label><br>
-        <textarea name="comment" id="comment" required></textarea><br>
-        <input type="submit" value="Publish Comment">
+
+    <form method="POST" action="">
+        <label for="comment">Comment:</label>
+        <textarea name="comment" required></textarea>
+        <button type="submit">Publish Comment</button>
     </form>
-    <a class="back-link" href="xhevdetdoda.php">&larr; Back to Xhevdet Doda Page</a>
 </div>
 </body>
 </html>

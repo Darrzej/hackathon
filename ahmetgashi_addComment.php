@@ -25,7 +25,7 @@ $isTeacher = strtolower($user['isteacher']) === 'true';
 $isAdmin = strtolower($user['isadmin']) === 'true';
 
 // Only allow admins or teachers from xhevdetdoda
-if (!($isAdmin || ($isTeacher && $school === 'samifrasheri'))) {
+if (!($isAdmin || ($isTeacher && $school === 'ahmetgashi'))) {
     echo "Access denied.";
     exit();
 }
@@ -40,20 +40,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $fullName = $user['name'] . ' ' . $user['surname'];
     $role = $isAdmin ? 'admin' : 'teacher';
-    $schoolName = 'samifrasheri';
+    $schoolName = 'ahmetgashi';
 
     $insertStmt = $conn->prepare("INSERT INTO comments (user_id, role, name, comment, school, created_at) VALUES (?, ?, ?, ?, ?, NOW())");
     $insertStmt->execute([$userId, $role, $fullName, $comment, $schoolName]);
 
-    header("Location: samifrasheri.php?success=1");
+    header("Location: ahmetgashi.php?success=1");
     exit();
 }
 ?>
 
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Add Comment - Sami Frasheri</title>
+    <title>Add Comment - Xhevdet Doda</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
@@ -111,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 <div class="container">
-    <h2>Add Comment - Sami Frasheri</h2>
+    <h2>Add Comment - Xhevdet Doda</h2>
 
     <?php if (isset($_GET['success'])): ?>
         <p class="success">Comment added successfully!</p>

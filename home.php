@@ -1,6 +1,66 @@
 <?php
 session_start();
+include 'config.php';
+
+if (!isset($_SESSION['id'])) {
+    header("Location: signin.php");
+    exit();
+}
+
+$userId = $_SESSION['id'];
+$school = null;
+$isadmin = 'false';
+$isteacher = 'false';
+$isstudent = 'false';
+
+if ($userId) {
+    $stmt = $conn->prepare("SELECT school, isadmin, isteacher, isstudent FROM users WHERE id = ?");
+    $stmt->execute([$userId]);
+    $userRow = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($userRow) {
+        $school = $userRow['school'];
+        $isadmin = $userRow['isadmin'];
+        $isteacher = $userRow['isteacher'];
+        $isstudent = $userRow['isstudent'];
+    }
+}
+
+
+
+$stmt = $conn->prepare("SELECT school, isadmin, isteacher, isstudent FROM users WHERE id = ?");
+$stmt->execute([$userId]);
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Assuming $user is fetched using the logged-in user's ID
+$isadmin = $user['isadmin'] ?? 'false';
+$isteacher = $user['isteacher'] ?? 'false';
+$isstudent = $user['isstudent'] ?? 'false';
+
+
+$schools = [
+    'Xhevdet Doda' => [
+        'file' => 'xhevdetdoda.php',
+        'image' => 'images/xhevdetdoda.jpeg'
+    ],
+    'Sami Frasheri' => [
+        'file' => 'samifrasheri.php',
+        'image' => 'images/samifrasheri.jpg'
+    ],
+    'Ahmet Gashi' => [
+        'file' => 'ahmetgashi.php',
+        'image' => 'images/ahmetgashi.jpg'
+    ]
+];
+
+// Only show the school card if user is student or teacher
+if ($user['isstudent'] || $user['isteacher']) {
+    $schools = array_filter($schools, function ($key) use ($user) {
+        return strtolower(str_replace(' ', '', $key)) === strtolower($user['school']);
+    }, ARRAY_FILTER_USE_KEY);
+}
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -270,6 +330,54 @@ session_start();
   font-weight: bold;
 }
 
+    .card-section {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 30px;
+        padding: 40px 20px;
+        background-color: #e9eff6;
+    }
+    .card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        width: 280px;
+        padding: 25px;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+    .card:hover {
+        transform: scale(1.03);
+    }
+    .card img {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 15px;
+    }
+    .card h3 {
+        color: #003366;
+        margin-bottom: 10px;
+    }
+    .card p {
+        color: #555;
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+    .card a {
+        display: inline-block;
+        padding: 10px 18px;
+        background-color: #003366;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: bold;
+    }
+    .card a:hover {
+        background-color: #002244;
+    }
+
+
 
   </style>
 </head>
@@ -284,7 +392,11 @@ session_start();
     </div>
   </div>
 
-  <div class="verification-notice">
+
+  <?php if ($isadmin !== 'true' && $isteacher !== 'true' && $isstudent !== 'true'): ?>
+    
+
+    <div class="verification-notice">
   <h2>🔐 Verify Your School Affiliation</h2>
   <p>
     To access your school's page on EduPrishtina, please send an email to 
@@ -294,6 +406,10 @@ session_start();
     Our administrators will review your request and grant access accordingly. This is required to ensure the privacy and integrity of each school’s data.
   </p>
 </div>
+
+<?php endif; ?>
+
+  
 
 
   <div class="content">
@@ -317,21 +433,28 @@ session_start();
 
 
     <div class="school-container">
-      <a href="xhevdetdoda.php" class="school-card">
-        <img src="images/xhevdetdoda.jpeg" alt="Xhevdet Doda">
-        <h3>Xhevdet Doda</h3>
-      </a>
+  <?php if ($isadmin === 'true' || $school === 'xhevdetdoda'): ?>
+    <a href="xhevdetdoda.php" class="school-card">
+      <img src="images/xhevdetdoda.jpeg" alt="Xhevdet Doda">
+      <h3>Xhevdet Doda</h3>
+    </a>
+  <?php endif; ?>
 
-      <a href="samifrasheri.php" class="school-card">
-        <img src="images/samifrasheri.jpg" alt="Sami Frasheri">
-        <h3>Sami Frasheri</h3>
-      </a>
+  <?php if ($isadmin === 'true' || $school === 'samifrasheri'): ?>
+    <a href="samifrasheri.php" class="school-card">
+      <img src="images/samifrasheri.jpg" alt="Sami Frasheri">
+      <h3>Sami Frasheri</h3>
+    </a>
+  <?php endif; ?>
 
-      <a href="ahmetgashi.php" class="school-card">
-        <img src="images/ahmetgashi.jpg" alt="Ahmet Gashi">
-        <h3>Ahmet Gashi</h3>
-      </a>
-    </div>
+  <?php if ($isadmin === 'true' || $school === 'ahmetgashi'): ?>
+    <a href="ahmetgashi.php" class="school-card">
+      <img src="images/ahmetgashi.jpg" alt="Ahmet Gashi">
+      <h3>Ahmet Gashi</h3>
+    </a>
+  <?php endif; ?>
+</div>
+
 
     <div class="statistics-section">
       <h2>Academic Statistics Overview</h2>
@@ -354,6 +477,35 @@ session_start();
       </div>
     </div>
   </div>
+
+
+
+  <div class="card-section">
+    <div class="card">
+        <img src="images/checkmark.png" alt="Verification">
+        <h3>Verification Notice</h3>
+        <p>Check how user verification works and what it means for your account.</p>
+        <a href="verificationNotice.php">Go to Page</a>
+    </div>
+
+    <div class="card">
+        <img src="images/calculator.png" alt="Calculator">
+        <h3>Online Calculator</h3>
+        <p>Use our integrated calculator for schoolwork and quick math.</p>
+        <a href="calculator.php">Try It</a>
+    </div>
+
+    <div class="card">
+        <img src="images/lightbulb.png" alt="Project Idea">
+        <h3>About the Project</h3>
+        <p>Understand the idea and motivation behind EduPrishtina's creation.</p>
+        <a href="projectIdea.php">Learn More</a>
+    </div>
+</div>
+
+
+
+  
 
    <!-- Footer -->
   <footer class="footer">

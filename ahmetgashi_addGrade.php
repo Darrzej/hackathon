@@ -23,12 +23,12 @@ $isStudent = strtolower($user['isstudent']) === 'true';
 $isTeacher = strtolower($user['isteacher']) === 'true';
 $isAdmin = strtolower($user['isadmin']) === 'true';
 
-if (!($isAdmin || ($isTeacher && $school === 'xhevdetdoda'))) {
+if (!($isAdmin || ($isTeacher && $school === 'ahmetgashi'))) {
     echo "Access denied.";
     exit();
 }
 
-$studentsStmt = $conn->prepare("SELECT id, name, surname FROM users WHERE school = 'xhevdetdoda' AND isstudent = 'true'");
+$studentsStmt = $conn->prepare("SELECT id, name, surname FROM users WHERE school = 'ahmetgashi' AND isstudent = 'true'");
 $studentsStmt->execute();
 $students = $studentsStmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $insertStmt = $conn->prepare("INSERT INTO student_grades (student_id, subject, grade, semester, teacher_id) VALUES (?, ?, ?, ?, ?)");
     $insertStmt->execute([$studentId, $subject, $grade, $semester, $teacherId]);
 
-    header("Location: addGrade.php?success=1");
+    header("Location: ahmetgashi_addGrade.php?success=1");
     exit();
 }
 ?>
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Add Grade - Xhevdet Doda</title>
+    <title>Add Grade - Ahmet Gashi</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 <div class="container">
-    <h2>Add Grade - Xhevdet Doda</h2>
+    <h2>Add Grade - Ahmet Gashi</h2>
 
     <?php if (isset($_GET['success'])): ?>
         <p class="success">Grade added successfully!</p>

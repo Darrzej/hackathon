@@ -86,7 +86,7 @@ $comments = $commentsStmt->fetchAll(PDO::FETCH_ASSOC);
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Xhevdet Doda School</title>
+    <title>Sami Frasheri School</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
@@ -292,15 +292,33 @@ $comments = $commentsStmt->fetchAll(PDO::FETCH_ASSOC);
             });
         </script>
 
-        <div class="comments-section">
-            <h3>Teacher/Admin Comments</h3>
-            <?php foreach ($comments as $c): ?>
-                <div class="comment-card">
-                    <div class="comment-meta">🧑‍🏫 <?= $c['role'] ?> <?= $c['name'] ?> <?= $c['surname'] ?> — <?= $c['timestamp'] ?></div>
-                    <div class="comment-text">"<?= htmlspecialchars($c['comment']) ?>"</div>
-                </div>
-            <?php endforeach; ?>
+        <div class="comment-section" style="margin-top: 40px;">
+  <h2 style="font-size: 24px; color: #333;">Comments</h2>
+  <?php
+  $stmt = $conn->prepare("SELECT * FROM comments WHERE school = 'samifrasheri' ORDER BY created_at DESC");
+  $stmt->execute();
+  $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+  if ($comments && count($comments) > 0):
+      foreach ($comments as $comment):
+  ?>
+      <div class="comment-card" style="border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 8px; background-color: #f9f9f9;">
+        <div class="comment-header" style="margin-bottom: 10px;">
+          <strong style="color: #0056b3;"><?php echo htmlspecialchars($comment['name']); ?></strong>
+          <span style="font-size: 14px; color: #555;">(<?php echo htmlspecialchars(ucfirst($comment['role'])); ?>)</span>
+          <div style="font-size: 12px; color: #888;"><?php echo htmlspecialchars($comment['created_at']); ?></div>
         </div>
+        <div class="comment-body" style="font-size: 16px; color: #333;">
+          <?php echo nl2br(htmlspecialchars($comment['comment'])); ?>
+        </div>
+      </div>
+  <?php
+      endforeach;
+  else:
+      echo "<p style='color: #666;'>No comments yet. Be the first to share your thoughts.</p>";
+  endif;
+  ?>
+</div>
     </div>
 </body>
 </html>
